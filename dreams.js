@@ -6,6 +6,8 @@ let camera3D, scene, renderer, sphere;
 let dir = 0.5;
 let controls;
 
+let pointlights;
+
 
 let img;
 
@@ -25,19 +27,23 @@ function init3D() {
 
 
     // The Object
-    // const radius = 3;  
-    // const segments = 10; 
+    const texture = new THREE.Texture();
+	texture.needsUpdate = true;
     const geometry = new THREE.SphereGeometry(2.5, 32, 16);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new  THREE.MeshBasicMaterial( { color: 0xdddddd,specular: 0x009900, shininess: 30, map: texture, transparent: true} );
     sphere = new THREE.Mesh(geometry, material);
     
     scene.add(sphere);
     
     //lights
-    const light = new THREE.AmbientLight( 0xffffff, 0.5 );
-    scene.add( ambient );
-
-
+    const light = new THREE.AmbientLight( 0xffffff, 1 );
+    const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.125 );
+    directionalLight.position.x = Math.random() - 0.5;
+	directionalLight.position.y = Math.random() - 0.5;
+	directionalLight.position.z = Math.random() - 0.5;
+    directionalLight.position.normalize();
+    scene.add( directionalLight );
+  
     //Controls
     controls = new OrbitControls(camera3D, renderer.domElement);
     camera3D.position.z = 5;
