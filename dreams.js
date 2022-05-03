@@ -1,12 +1,13 @@
 import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/build/three.module.js';
 import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+
 // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 let camera3D, scene, renderer, sphere;
 let dir = 0.5;
 let controls;
 
-let pointlights;
+
 
 
 let img;
@@ -27,22 +28,22 @@ function init3D() {
 
 
     // The Object
-    const texture = new THREE.Texture();
-	texture.needsUpdate = true;
+  
     const geometry = new THREE.SphereGeometry(2.5, 32, 16);
-    const material = new  THREE.MeshBasicMaterial( { color: 0xdddddd,specular: 0x009900, shininess: 30, map: texture, transparent: true} );
+    const material = new  THREE.MeshPhongMaterial();
     sphere = new THREE.Mesh(geometry, material);
     
     scene.add(sphere);
     
     //lights
-    const light = new THREE.AmbientLight( 0xffffff, 1 );
-    const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.125 );
-    directionalLight.position.x = Math.random() - 0.5;
-	directionalLight.position.y = Math.random() - 0.5;
-	directionalLight.position.z = Math.random() - 0.5;
+    const light = new THREE.AmbientLight( 0xffffff, 30 );
+    const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    directionalLight.position.x = Math.random() - 0.2;
+	directionalLight.position.y = Math.random() - 0.2;
+	directionalLight.position.z = Math.random() - 0.2;
     directionalLight.position.normalize();
     scene.add( directionalLight );
+
   
     //Controls
     controls = new OrbitControls(camera3D, renderer.domElement);
@@ -58,6 +59,7 @@ function init3D() {
         animate();
     }
    
+  
 
 function animate() {
 
